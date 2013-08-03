@@ -1,7 +1,21 @@
 <?php
 
+//Registrando Menu
+add_action( 'init', 'register_menus' );
+
+function register_menus() {
+	register_nav_menus(
+		array(
+			'menu_header' => __( 'Menu Header' ),
+		)
+	);
+}
+
+
+
+
 /*
- * Tipo cistpmizado - Imóvel
+ * Tipo customizado - Imóvel
  */
 add_action( 'init', 'create_post_types' );
 function create_post_types() {
@@ -40,7 +54,6 @@ function admin_init(){
 	add_meta_box("imovelInfo-meta", "Opções do Imóvel", "meta_options", "imovel", "normal", "low");
 }
 	
-
 
 
 //Cria formulário do imóvel	
