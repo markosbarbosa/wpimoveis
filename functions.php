@@ -17,6 +17,39 @@ function register_menus() {
 }
 
 
+//Adicionando css e javascript
+add_action( 'wp_enqueue_scripts', 'wptuts_scripts_basic' );
+function wptuts_scripts_basic()
+{
+
+	//Jquery
+	wp_register_script( 'jquery-lib', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js' );
+	wp_enqueue_script( 'jquery-lib' );
+
+
+	
+
+	//galeria de Imagens
+	wp_register_script( 'ad-gallery', get_template_directory_uri() . '/galeria/jquery.ad-gallery.js' );
+	wp_enqueue_script( 'ad-gallery' );
+
+	wp_register_script( 'ad-gallery.min', get_template_directory_uri() . '/galeria/jquery.ad-gallery.min.js' );
+	wp_enqueue_script( 'ad-gallery.min' );
+
+
+	wp_register_style( 'ad-gallery', get_template_directory_uri() . '/galeria/jquery.ad-gallery.css', array(), '20130803', 'all'  );
+	wp_enqueue_style( 'ad-gallery' );
+	
+	
+
+	//Css dos imóveis
+	wp_register_style( 'style-imoveis', get_template_directory_uri() . '/css/imoveis.css', array(), '20130803', 'all'  );
+	wp_enqueue_style( 'style-imoveis' );
+
+
+}
+
+
 
 
 /*
@@ -163,3 +196,80 @@ function imoveis_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'imoveis_widgets_init' );
+
+
+
+
+
+
+//Galeria de Imagens da tela do Imóvel
+function the_gallery() {
+	$attachments = get_children( array('post_parent' => get_the_ID(), 
+										'post_type' => 'attachment', 
+										'post_mime_type' => 'image') );
+
+	?>
+	<!-- Inicio da galeria de Imagens -->
+	<div class="ad-gallery">
+	  <div class="ad-image-wrapper">
+	  </div>
+	  <div class="ad-controls">
+	  </div>
+	  <div class="ad-nav">
+	    <div class="ad-thumbs">
+	      <ul class="ad-thumb-list">
+		<?php
+		foreach ( $attachments as $attachment_id => $attachment ) {
+			$image_attributes = wp_get_attachment_image_src( $attachment_id,'large' );
+			?>
+			<li>
+	          		<a href="<?php echo $image_attributes[0]; ?>">
+	            	<?php echo wp_get_attachment_image($attachment_id,array(75,75)); ?>	
+	          		</a>
+	        </li>
+			<?php
+		}
+		?>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+	<!-- Fim da galeria de Imagens -->
+	<?php
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

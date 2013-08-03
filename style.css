@@ -20,23 +20,16 @@ body { text-align: center; }
 
 
 
-/* Formataçnao do imóveis */
-.imovel_lista{
-	list-style: none;
-}
 
 
-.imovel_lista li{
-	width: 175px;
-	float: left;
-	min-height: 300px;
-	border: 1px solid #e9e9e9 ;
-	margin-right: 10px;
-}
 
 
-.imovel_lista li img{
-	width: 175px;
-	height: auto;
-	border-bottom: 2px solid #e9e9e9;
-}
+
+
+
+
+
+
+
+
+

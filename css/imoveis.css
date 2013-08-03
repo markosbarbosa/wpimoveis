@@ -1,0 +1,38 @@
+/* 
+	Formatação dos dados referentes a Imóveis
+	A idéia é separar dos restante do tema para facilitar a manutenção
+*/
+.imovel_lista{
+	list-style: none;
+}
+
+
+.imovel_lista li{
+	width: 175px;
+	float: left;
+	min-height: 300px;
+	border: 1px solid #e9e9e9 ;
+	margin-right: 10px;
+}
+
+.imovel_lista li img{
+	width: 175px;
+	height: auto;
+	border-bottom: 2px solid #e9e9e9;
+}
+
+.imovel{
+
+}
+
+.imovel .destaque{
+
+}
+
+.imovel .destaque .galeria_de_imagen{
+
+}
+.imovel .destaque .detalhes{
+	
+}
+
