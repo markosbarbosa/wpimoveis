@@ -115,24 +115,10 @@ function save_imovelinfo(){
 }
 
 
+
+//Criando a Taxonomia para imóveis
 add_action( 'init', 'create_imovel_taxonomies', 0 );
 function create_imovel_taxonomies() {
-    register_taxonomy(
-        'imovel_tipo',
-        'imovel',
-        array(
-            'labels' => array(
-                'name' => 'Tipos de Imóvel',
-                'add_new_item' => 'Adicionar novo tipo de imóvel',
-                'new_item_name' => "Novo tipo de imóvel"
-            ),
-            'show_ui' => true,
-            'show_tagcloud' => false,
-            'hierarchical' => true
-        )
-    );
-
-
     register_taxonomy(
         'imovel_categorias',
         'imovel',
@@ -148,8 +134,6 @@ function create_imovel_taxonomies() {
         )
     );
 }
-
-
 
 /**
  * Register our sidebars and widgetized areas.
