@@ -130,7 +130,8 @@ function meta_options(){
 	$condominio = $custom["condominio"][0];		
 	$bairro = $custom["bairro"][0];		
 	$cidade = $custom["cidade"][0];		
-	$estado = $custom["estado"][0];		
+	$estado = $custom["estado"][0];
+	$tipo_operacao = $custom["tipo_operacao"][0];		
 	?>
 		<style type="text/css">
 
@@ -139,10 +140,25 @@ function meta_options(){
 			border:1px solid #ccc;
 		}
 
+		.imovelinfo select{
+			width: 150px;
+			border:1px solid #ccc;
+		}
+
 
 		</style>
 		<div class='imovelinfo'>
 		<table>
+			<tr>
+				<td>Tipo</td>
+				<td>
+					<select name='tipo_operacao'>
+						<option value='Vender' <?php echo $tipo_operacao=='Vender'?'selected':''; ?> >Vender</option>
+						<option value='Alugar' <?php echo $tipo_operacao=='Alugar'?'selected':''; ?>>Alugar</option>
+					</select>
+
+				</td>
+			</tr>
 			<tr>
 				<td>Valor</td>
 				<td><input name="preco" value="<?php echo $preco; ?>"/><br/></td>
@@ -178,6 +194,7 @@ function save_imovelinfo(){
 	update_post_meta($post->ID, "bairro", $_POST["bairro"]);
 	update_post_meta($post->ID, "cidade", $_POST["cidade"]);
 	update_post_meta($post->ID, "estado", $_POST["estado"]);
+	update_post_meta($post->ID, "tipo_operacao", $_POST["tipo_operacao"]);
 }
 
 
@@ -207,14 +224,12 @@ function the_gallery() {
 	$attachments = get_children( array('post_parent' => get_the_ID(), 
 										'post_type' => 'attachment', 
 										'post_mime_type' => 'image') );
-
 	?>
 	<!-- Inicio da galeria de Imagens -->
 	<div class="ad-gallery">
 	  <div class="ad-image-wrapper">
 	  </div>
-	  <div class="ad-controls">
-	  </div>
+	  <!-- <div class="ad-controls"></div> -->
 	  <div class="ad-nav">
 	    <div class="ad-thumbs">
 	      <ul class="ad-thumb-list">

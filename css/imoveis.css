@@ -22,17 +22,28 @@
 }
 
 .imovel{
-
+	padding: 20px;
+	
 }
 
 .imovel .destaque{
-
+	
 }
 
-.imovel .destaque .galeria_de_imagen{
-
+.imovel .destaque .galeria_de_imagens{
+	width: 300px;
 }
+
 .imovel .destaque .detalhes{
 	
 }
 
+
+
+.ad-gallery {
+	width: 475px;
+}
+
+.ad-gallery .ad-image-wrapper {
+	height:300px
+}

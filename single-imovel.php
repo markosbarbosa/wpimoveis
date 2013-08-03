@@ -43,19 +43,10 @@
 				<div class='galeria_de_imagens'>
 					<!-- Carrega todas as imagens vinculadas ao post -->	
 					<?php the_gallery(); ?>
-
-
 				</div>
-
-
-
-
-
-
-
-
-
 				<div class='detalhes'>
+          <?php $imovel_fields = get_post_custom(); ?>
+          
 					
 				</div>
 			</div>
