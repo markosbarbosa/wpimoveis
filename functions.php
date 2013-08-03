@@ -231,10 +231,18 @@ function save_imovelinfo(){
  *
  */
 function widgets_register() {
+
+	register_sidebar( array(
+		'name' => 'Destaque Home',
+		'id' => 'sidebar_destaque_home',
+	) );
+
+
 	register_sidebar( array(
 		'name' => 'Imóvel',
 		'id' => 'sidebar_imovel',
 	) );
+
 
 	register_sidebar( array(
 		'name' => 'Listagem de Imóveis',
@@ -290,14 +298,31 @@ function the_gallery() {
 }
 
 
+//widgets
 
 
-
-
-
-
-
-
+ 
+/** Register Widget **/
+function load_widgets() {
+	register_widget( 'Imovel_Search' );
+}
+add_action( 'widgets_init', 'load_widgets' );
+ 
+/** Define the Widget as an extension of WP_Widget **/
+class Imovel_Search extends WP_Widget {
+	function Imovel_Search() {
+		$widget_ops = array( 'classname' => 'widget_imovel_search', 'description' => 'Widget para busca de imóveis' );
+		$control_ops = array( 'id_base' => 'imovel_search' );
+ 
+		/* Create the widget. */
+		$this->WP_Widget( 'imovel_search', 'Pesquisa de Imóveis', $widget_ops, $control_ops );
+	}
+ 
+	function widget( $args, $instance ) {
+		
+		echo 'asdasdasd';
+	}
+}
 
 
 
