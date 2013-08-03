@@ -15,7 +15,7 @@ function register_menus() {
 
 
 /*
- * Tipo customizado - Imóvel
+ * Criando o tipo Imóvel
  */
 add_action( 'init', 'create_post_types' );
 function create_post_types() {
@@ -27,24 +27,56 @@ function create_post_types() {
 				'singular_name' => __( 'Imóvel' ),
 				'add_new'            => _x( 'Adicionar novo', 'imóvel' ),
 				'add_new_item'       => __( 'Adicionar novo imóvel' ),
-				'edit_item'          => __( 'Edit Product' ),
+				'edit_item'          => __( 'Edit imóvel' ),
 				'new_item'           => __( 'Novo imóvel' ),
 				'all_items'          => __( 'Todos os imóveis' ),
 				'view_item'          => __( 'Ver imóvel' ),
 				'search_items'       => __( 'Procurar imóvel' ),
 				'not_found'          => __( 'Nenhum imóvel encontrado' ),
-				'not_found_in_trash' => __( 'Nenhum imóvel na liveixa' ), 
+				'not_found_in_trash' => __( 'Nenhum imóvel na lixeira' ), 
 				'parent_item_colon'  => '',
 				'menu_name'          => 'Imóveis'
 			),
-		'public' => true,
-		'has_archive' => true,
 		'supports' => array( 'title', 'editor', 'thumbnail' ),
+		'public' => true,
+		'publicly_queryable' => true,
+		'show_ui' => true,
+    	'show_in_menu' => true,
+    	'capability_type' => 'post',
+    	'hierarchical' => false,
+    	'menu_position' => 4,
+		'has_archive' => true,
 		'rewrite' => array('slug' => 'imoveis'),
 		'taxonomies' => array('post_tag'),
 		)
 	);
 }
+
+//Criando a Taxonomia para imóveis
+add_action( 'init', 'create_imovel_taxonomies', 0 );
+function create_imovel_taxonomies() {
+    register_taxonomy(
+        'imovel_tipos',
+        'imovel',
+        array(
+            'labels' => array(
+                'name' => 'Tipos de Imóveis',
+                'add_new_item' => 'Adicionar novo tipo de imóvel',
+                'new_item_name' => "Novo tipo de Imóvel"
+            ),
+            'hierarchical' => true,
+            'show_ui' => true,
+        	'show_in_tag_cloud' => true,
+	        'query_var' => true,
+	        'rewrite' => array(
+   			'slug' => 'imoveis/tipos',
+   			'with_front' => false,
+   			)
+        )
+    );
+}
+
+
 
 //Criando o widget para inserçnao dos dados adicionais do imóvel
 add_action("admin_init", "admin_init");
@@ -116,24 +148,7 @@ function save_imovelinfo(){
 
 
 
-//Criando a Taxonomia para imóveis
-add_action( 'init', 'create_imovel_taxonomies', 0 );
-function create_imovel_taxonomies() {
-    register_taxonomy(
-        'imovel_categorias',
-        'imovel',
-        array(
-            'labels' => array(
-                'name' => 'Categorias de Imóvel',
-                'add_new_item' => 'Adicionar nova categoria de imóvel',
-                'new_item_name' => "Novo Categoria"
-            ),
-            'show_ui' => true,
-            'show_tagcloud' => false,
-            'hierarchical' => true
-        )
-    );
-}
+
 
 /**
  * Register our sidebars and widgetized areas.
