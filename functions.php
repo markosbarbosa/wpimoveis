@@ -1,4 +1,9 @@
 <?php
+//Configurações de Suporte do theme
+
+//Adicionando suporte ao thumbnail
+add_theme_support('post-thumbnails');
+
 
 //Registrando Menu
 add_action( 'init', 'register_menus' );
@@ -37,7 +42,7 @@ function create_post_types() {
 				'parent_item_colon'  => '',
 				'menu_name'          => 'Imóveis'
 			),
-		'supports' => array( 'title', 'editor', 'thumbnail' ),
+		'supports' => array( 'title', 'editor', 'thumbnail'),
 		'public' => true,
 		'publicly_queryable' => true,
 		'show_ui' => true,
