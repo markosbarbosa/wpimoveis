@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<!-- Script para galeria de Imagens :: Comeco -->
 <script type="text/javascript">
   $(function() {
     $('img.image1').data('ad-desc', 'Whoa! This description is set through elm.data("ad-desc") instead of using the longdesc attribute.<br>And it contains <strong>H</strong>ow <strong>T</strong>o <strong>M</strong>eet <strong>L</strong>adies... <em>What?</em> That aint what HTML stands for? Man...');
@@ -32,39 +33,74 @@
     );
   });
   </script>
+  <!-- Script para galeria de Imagens :: Fim -->
 <div id="main">
 	<div id="content">
 	
 		<?php if ( have_posts() ) : while( have_posts() ) : the_post(); ?>
 
 		<div class='imovel'>
+      
+      <h2><?php the_title(); ?></h2>
+
 			<div class='destaque'>
+        <div class='detalhes'>
+          <?php $imovel_fields = get_post_custom(); ?>
+          
+          <div class='operacao'>
+            Imóvel para <?php echo $imovel_fields['tipo_operacao'][0] ?>
+          </div>
+          <div class='bairro'>
+            <?php echo $imovel_fields['bairro'][0] ?>
+          </div>
+          <div class='cidade_estado'>
+            <?php echo $imovel_fields['cidade'][0] ?> / <?php echo $imovel_fields['estado'][0] ?>
+          </div>
+          
+          <div class='preco'>
+            <div><span>R$</span><?php echo $imovel_fields['preco'][0] ?></div>
+            <div class='condominio'><span>R$</span><?php echo $imovel_fields['condominio'][0] ?></div>
+          </div>
+          
+
+          <div class='quartos'>
+            <?php echo $imovel_fields['quartos'][0] ?> quarto(s)
+          </div>
+          <div class='banheiros'>
+            <?php echo $imovel_fields['banheiros'][0] ?> banheiro(s)
+          </div>
+          <div class='area_util'>
+            <?php echo $imovel_fields['area_util'][0] ?>m² de área útil
+          </div>
+          <div class='garagem'>
+            <?php echo $imovel_fields['garagem'][0] ?> vaga(s)
+          </div>
+  
+
+        </div>
+
+
 
 				<div class='galeria_de_imagens'>
 					<!-- Carrega todas as imagens vinculadas ao post -->	
 					<?php the_gallery(); ?>
 				</div>
-				<div class='detalhes'>
-          <?php $imovel_fields = get_post_custom(); ?>
-          
-					
-				</div>
+				
 			</div>
-
-
-
 		</div>
 
+  
+    <div class='observacoes'>
+    <h2>Mais Informações</h2>
+    <div class='content'>
+      <?php the_content(); ?>
+    </div>
+    </div>
 
-
- 
-		<div class="entry-title"><?php the_title(); ?></div>
-		<div class="entry-content"><?php the_content(); ?></div>
- 
 		<?php endwhile; endif; ?>		
 		
 	</div>
-	<?php get_sidebar(); ?>
+	<?php get_sidebar('imovel'); ?>
 </div>
 <div id="delimiter">
 </div>

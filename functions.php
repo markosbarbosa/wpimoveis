@@ -132,6 +132,10 @@ function meta_options(){
 	$cidade = $custom["cidade"][0];		
 	$estado = $custom["estado"][0];
 	$tipo_operacao = $custom["tipo_operacao"][0];		
+	$quartos = $custom["quartos"][0];
+	$banheiros = $custom["banheiros"][0];
+	$area_util = $custom["area_util"][0];
+	$garagem = $custom["garagem"][0];
 	?>
 		<style type="text/css">
 
@@ -180,6 +184,23 @@ function meta_options(){
 				<td>Estado</td>
 				<td><input name="estado" value="<?php echo $estado; ?>"/><br/></td>
 			</tr>
+			<tr>
+				<td>Quartos</td>
+				<td><input name="quartos" value="<?php echo $quartos; ?>"/><br/></td>
+			</tr>
+			<tr>
+				<td>Banheiros</td>
+				<td><input name="banheiros" value="<?php echo $banheiros; ?>"/><br/></td>
+			</tr>
+			<tr>
+				<td>Área util</td>
+				<td><input name="area_util" value="<?php echo $area_util; ?>"/>m² de área útil.<br/></td>
+			</tr>
+			<tr>
+				<td>Garagem</td>
+				<td><input name="garagem" value="<?php echo $garagem; ?>"/><br/></td>
+			</tr>
+			
 		</table>
 		
 		</div>
@@ -195,6 +216,10 @@ function save_imovelinfo(){
 	update_post_meta($post->ID, "cidade", $_POST["cidade"]);
 	update_post_meta($post->ID, "estado", $_POST["estado"]);
 	update_post_meta($post->ID, "tipo_operacao", $_POST["tipo_operacao"]);
+	update_post_meta($post->ID, "quartos", $_POST["quartos"]);
+	update_post_meta($post->ID, "banheiros", $_POST["banheiros"]);
+	update_post_meta($post->ID, "area_util", $_POST["area_util"]);
+	update_post_meta($post->ID, "garagem", $_POST["garagem"]);
 }
 
 
@@ -205,14 +230,25 @@ function save_imovelinfo(){
  * Register our sidebars and widgetized areas.
  *
  */
-function imoveis_widgets_init() {
+function widgets_register() {
+	register_sidebar( array(
+		'name' => 'Imóvel',
+		'id' => 'sidebar_imovel',
+	) );
 
 	register_sidebar( array(
-		'name' => 'banner_homme',
-		'id' => 'home_right',
+		'name' => 'Listagem de Imóveis',
+		'id' => 'sidebar_categorias',
+	) );
+
+	register_sidebar( array(
+		'name' => 'Rodapé',
+		'id' => 'sidebar_rodape',
 	) );
 }
-add_action( 'widgets_init', 'imoveis_widgets_init' );
+add_action( 'widgets_init', 'widgets_register' );
+
+
 
 
 

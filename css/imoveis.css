@@ -27,19 +27,44 @@
 }
 
 .imovel .destaque{
-	
+
 }
 
 .imovel .destaque .galeria_de_imagens{
-	width: 300px;
+	width: 475px;
 }
 
 .imovel .destaque .detalhes{
-	
+	margin-left: 533px;
+	width: 245px;
+	display: block;
+	position: absolute;
+	border: 1px solid #ddd;
+}
+
+.imovel .destaque .detalhes div{
+	padding: 8px;
+	text-align: left;
+}
+
+.operacao{ 		font-size: 18px; }
+.bairro{ 		font-size: 22px; }
+.cidade_estado{	font-size: 15px; }
+.preco{
+display: block;
+padding: 20px;
+border-top: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
+overflow: hidden;
+position: relative;
 }
 
 
 
+
+
+
+/* Formatacão da Galeria de Imagens */
 .ad-gallery {
 	width: 475px;
 }

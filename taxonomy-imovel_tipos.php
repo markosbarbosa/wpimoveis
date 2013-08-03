@@ -34,7 +34,7 @@
 		?>
 		
 	</div>
-	<?php get_sidebar(); ?>
+	<?php get_sidebar('listagemimoveis'); ?>
 </div>
 <div id="delimiter">
 </div>
