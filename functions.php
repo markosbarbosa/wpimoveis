@@ -68,10 +68,6 @@ function create_imovel_taxonomies() {
             'show_ui' => true,
         	'show_in_tag_cloud' => true,
 	        'query_var' => true,
-	        'rewrite' => array(
-   			'slug' => 'imoveis/tipos',
-   			'with_front' => false,
-   			)
         )
     );
 }
