@@ -9,9 +9,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php' );
 	$sizeGET=sizeof($_GET);
 	switch ($sizeGET) {
 		case 1:
-			?>
-				<option value='1'>Filtrar tipo</option>
-			<?php
+			echo filtrarTipoImoveis($_GET['operacao']);
 			break;
 		case 2:
 			echo get_filter('estado','');
@@ -26,6 +24,35 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php' );
 		default:
 			# code...
 			break;
+	}
+
+
+	function filtrarTipoImoveis($operacao){
+		global $wpdb;
+	    $data   =   array();
+	    $categorias=array();
+
+	    $sql="
+	    	SELECT `post_id`
+	        FROM $wpdb->postmeta
+	        WHERE `meta_key`='tipo_operacao' AND `meta_value`='$operacao'  GROUP BY `post_id` 
+	        ";
+
+	    foreach($wpdb->get_results($sql) as $k => $v){
+	    	$terms = get_the_terms($v->post_id, 'imovel_tipos' );
+			if ( !empty( $terms ) ) {
+				$out = array();
+				foreach ( $terms as $term )
+					$categorias[$term->term_id]=$term->name;
+			}
+
+	    };
+
+	    foreach($categorias as $key=>$value){
+	    	$options.='<option value="'.$key.'"">'.$value.'</option>';		
+	    }
+
+	    return $options;
 	}
 
 
