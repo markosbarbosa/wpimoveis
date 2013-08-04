@@ -9,16 +9,16 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php' );
 	$sizeGET=sizeof($_GET);
 	switch ($sizeGET) {
 		case 1:
-			echo filtrarTipoImoveis($_GET['operacao']);
+			echo filtrarTipoImoveis($_GET['tipo_operacao']);
 			break;
 		case 2:
-			echo get_filter('estado','');
+			echo get_filter('estado',$_GET);
 			break;
 		case 3:
-			echo get_filter('cidade','');
+			echo get_filter('cidade',$_GET);
 			break;
 		case 4:
-			echo get_filter('bairro','');
+			echo get_filter('bairro',$_GET);
 			break;
 		
 		default:
@@ -49,26 +49,65 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php' );
 	    };
 
 	    foreach($categorias as $key=>$value){
-	    	$options.='<option value="'.$key.'"">'.$value.'</option>';		
+	    	$options.='<option value="'.$key.'">'.$value.'</option>';		
 	    }
 
 	    return $options;
 	}
 
 
-	function get_filter($meta_key,$parametros){
-	    global $wpdb;
+	function get_filter($meta_key,$filter){
 	    $data   =   array();
+	    $meta_queries = array();
+	    $array_meta_key=array();
+	    
+	    //Monta filtro com as informações enviadas
+	    foreach ($filter as $key => $value) {
+	    	if ( $key!='tipo' ) {	//Não faz filtro na for a categoria 
+			    $meta_queries[] = array(
+			        'key' => $key,
+			        'value' => $value,
+			        'compare' => '=',
+			    );
+			}	
+	    }
 
-	    $sql="
-	        SELECT `meta_key`, `meta_value`
-	        FROM $wpdb->postmeta
-	        WHERE `meta_key`='$meta_key' GROUP BY `meta_value`
-	    ";
+	    //Filtra posts com as informações
+		query_posts(array(
+		    'post_type' => 'imovel', // custom post type
+		    'orderby' => $sort_by,
+		    'tax_query' => array(
+				array(
+					'taxonomy' => 'imovel_tipos', //or tag or custom taxonomy
+					'field' => 'id',
+					'terms' => array($filter['tipo'])
+				)
+			),
+		    'order' => $sort_order,
+		    'meta_query' => $meta_queries,
+		));
 
-	    foreach($wpdb->get_results($sql) as $k => $v){
-	        $options.="<option value='$v->meta_value'>$v->meta_value</option>";
-	    };
+
+		$options='';
+		if(have_posts()) : while(have_posts()) : the_post();
+			$imovel_fields = get_post_custom($post->post_ID);
+			
+			
+			if(!in_array($imovel_fields[$meta_key][0], $array_meta_key)){
+				
+				$info=$imovel_fields[$meta_key][0];
+
+				$array_meta_key[]=$info;	
+
+				$options.='<option value="'.$info.'">'.$info.'</option>';	
+			}
+			
+		endwhile;
+		endif;
+			
+			
+		
+
 
 
 	    return $options;

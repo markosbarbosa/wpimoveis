@@ -1,7 +1,7 @@
 <div class='frm-pesquisa-imovel'>
 	<form>
 		Opção:
-		<select class='filter_select' name='operacao'>
+		<select class='filter_select' name='tipo_operacao'>
 			<option value=''>Comece o filtro aqui!</option>
 			{OPERACAO}
 		</select>
@@ -31,30 +31,36 @@
 		parametros='';
 
 		//Filtrando os tipos disponiveis
-		if(this.name=='operacao'){
-			parametros+='operacao='+$('select[name=\'operacao\']').val();
+		if(this.name=='tipo_operacao'){
+			parametros+='tipo_operacao='+$('select[name=\'tipo_operacao\']').val();
 			$('select[name=\'tipo\']').load("{THEME_URL}/searchfilter.php?"+parametros);	
+			$('select[name=\'estado\']').clear();
+			$('select[name=\'cidade\']').clear();
+			$('select[name=\'bairro\']').clear();
 		}
 
 
 		//Filtrando os estados disponiveis
 		if(this.name=='tipo'){
-			parametros+='operacao='+$('select[name=\'operacao\']').val();
+			parametros+='tipo_operacao='+$('select[name=\'tipo_operacao\']').val();
 			parametros+='&tipo='+$('select[name=\'tipo\']').val();
 			$('select[name=\'estado\']').load("{THEME_URL}/searchfilter.php?"+parametros);	
+			$('select[name=\'cidade\']').clear();
+			$('select[name=\'bairro\']').clear();
 		}
 
 		//filtrando as cidades disponiveis
 		if(this.name=='estado'){
-			parametros+='operacao='+$('select[name=\'operacao\']').val();
+			parametros+='tipo_operacao='+$('select[name=\'tipo_operacao\']').val();
 			parametros+='&tipo='+$('select[name=\'tipo\']').val();
 			parametros+='&estado='+$('select[name=\'estado\']').val();
 			$('select[name=\'cidade\']').load("{THEME_URL}/searchfilter.php?"+parametros);	
+			$('select[name=\'bairro\']').clear();
 		}
 
 		//filtrando os bairros disposniveis
 		if(this.name=='cidade'){
-			parametros+='operacao='+$('select[name=\'operacao\']').val();
+			parametros+='tipo_operacao='+$('select[name=\'tipo_operacao\']').val();
 			parametros+='&tipo='+$('select[name=\'tipo\']').val();
 			parametros+='&estado='+$('select[name=\'estado\']').val();
 			parametros+='&cidade='+$('select[name=\'cidade\']').val();
