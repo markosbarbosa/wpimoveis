@@ -1,0 +1,68 @@
+<div class='frm-pesquisa-imovel'>
+	<form>
+		Opção:
+		<select class='filter_select' name='operacao'>
+			<option value=''>Comece o filtro aqui!</option>
+			{OPERACAO}
+		</select>
+
+		Tipo Imóvel
+		<select class='filter_select' name='tipo'></select>
+
+		Estado:
+		<select class='filter_select' name='estado'></select>
+
+		Cidade:
+		<select class='filter_select' name='cidade'></select>
+
+		Bairro:
+		<select class='filter_select' name='bairro'></select>
+		
+
+		<input type='button' value='Pesquisar'/>
+
+	</form>
+</div>
+
+<script>
+	$('.filter_select').bind('change', function() {
+		
+		//Inicializa a variavel vazia para concatenacao
+		parametros='';
+
+		//Filtrando os tipos disponiveis
+		if(this.name=='operacao'){
+			parametros+='operacao='+$('select[name=\'operacao\']').val();
+			$('select[name=\'tipo\']').load("{THEME_URL}/searchfilter.php?"+parametros);	
+		}
+
+
+		//Filtrando os estados disponiveis
+		if(this.name=='tipo'){
+			parametros+='operacao='+$('select[name=\'operacao\']').val();
+			parametros+='&tipo='+$('select[name=\'tipo\']').val();
+			$('select[name=\'estado\']').load("{THEME_URL}/searchfilter.php?"+parametros);	
+		}
+
+		//filtrando as cidades disponiveis
+		if(this.name=='estado'){
+			parametros+='operacao='+$('select[name=\'operacao\']').val();
+			parametros+='&tipo='+$('select[name=\'tipo\']').val();
+			parametros+='&estado='+$('select[name=\'estado\']').val();
+			$('select[name=\'cidade\']').load("{THEME_URL}/searchfilter.php?"+parametros);	
+		}
+
+		//filtrando os bairros disposniveis
+		if(this.name=='cidade'){
+			parametros+='operacao='+$('select[name=\'operacao\']').val();
+			parametros+='&tipo='+$('select[name=\'tipo\']').val();
+			parametros+='&estado='+$('select[name=\'estado\']').val();
+			parametros+='&cidade='+$('select[name=\'cidade\']').val();
+			$('select[name=\'bairro\']').load("{THEME_URL}/searchfilter.php?"+parametros);	
+		}
+		
+
+	});
+
+
+</script>

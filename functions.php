@@ -159,6 +159,7 @@ function meta_options(){
 					<select name='tipo_operacao'>
 						<option value='Vender' <?php echo $tipo_operacao=='Vender'?'selected':''; ?> >Vender</option>
 						<option value='Alugar' <?php echo $tipo_operacao=='Alugar'?'selected':''; ?>>Alugar</option>
+						<option value='Temporada' <?php echo $tipo_operacao=='Temporada'?'selected':''; ?>>Temporada</option>
 					</select>
 
 				</td>
@@ -318,11 +319,69 @@ class Imovel_Search extends WP_Widget {
 		$this->WP_Widget( 'imovel_search', 'Pesquisa de Imóveis', $widget_ops, $control_ops );
 	}
  
+
 	function widget( $args, $instance ) {
 		
-		echo 'asdasdasd';
+		$pesquisa_form=file_get_contents(get_template_directory_uri().'/templates/pesquisa_form.html');
+
+		
+
+		//Carregando variaveis do Thema
+		$pesquisa_form=str_replace('{THEME_URL}', get_template_directory_uri(), $pesquisa_form);
+		$pesquisa_form=str_replace('{OPERACAO}', $this->get_operations('tipo_operacao'), $pesquisa_form);
+
+		echo $pesquisa_form;
+	}
+
+
+
+	function get_operations($meta_key){
+	    global $wpdb;
+	    $data   =   array();
+
+	    $sql="
+	        SELECT `meta_key`, `meta_value`
+	        FROM $wpdb->postmeta
+	        WHERE `meta_key`='$meta_key' GROUP BY `meta_value`
+	    ";
+
+	    $options='';
+	    foreach($wpdb->get_results($sql) as $k => $v){
+	        //$data[$v->meta_key][] = $v->meta_value;
+	        $options.="<option value='$v->meta_value'>$v->meta_value</option>";
+	    };
+
+
+	    return $options;
+	}
+
+
+	function get_filter_info($args){
+
+
+
 	}
 }
+
+function theGetFilter($meta_key,$parametros){
+	    global $wpdb;
+	    $data   =   array();
+
+	    $sql="
+	        SELECT `meta_key`, `meta_value`
+	        FROM $wpdb->postmeta
+	        WHERE `meta_key`='$meta_key' GROUP BY `meta_value`
+	    ";
+	    echo $sql;
+	    $options='';
+	    foreach($wpdb->get_results($sql) as $k => $v){
+	        //$data[$v->meta_key][] = $v->meta_value;
+	        $options.="<option value='$v->meta_value'>$v->meta_value</option>";
+	    };
+
+
+	    return $options;
+	}
 
 
 
