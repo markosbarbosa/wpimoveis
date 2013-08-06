@@ -6,7 +6,7 @@
 
 <?php get_header(); ?>
 <div id="main">
-	<div id="content home">
+	<div id="content" class="home">
 		
 		<h1>Bem vindo, você esta na página principal do site</h1>
 

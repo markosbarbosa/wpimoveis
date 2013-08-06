@@ -93,7 +93,7 @@
     <div class='observacoes'>
     <h2>Mais Informações</h2>
     <div class='content'>
-      <?php the_content(); ?>
+      te
     </div>
     </div>
 

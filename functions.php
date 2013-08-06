@@ -11,7 +11,7 @@ add_action( 'init', 'register_menus' );
 function register_menus() {
 	register_nav_menus(
 		array(
-			'menu_header' => __( 'Menu Header' ),
+			'primary' => __( 'Menu Principal' ),
 		)
 	);
 }
@@ -46,6 +46,13 @@ function wptuts_scripts_basic()
 	wp_register_style( 'style-imoveis', get_template_directory_uri() . '/css/imoveis.css', array(), '20130803', 'all'  );
 	wp_enqueue_style( 'style-imoveis' );
 
+
+
+	//Google Font
+
+	wp_register_style( 'google-font', 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600', 
+		array(), '20130804', 'all'  );
+	wp_enqueue_style( 'google-font' );
 
 }
 
@@ -363,25 +370,7 @@ class Imovel_Search extends WP_Widget {
 	}
 }
 
-function theGetFilter($meta_key,$parametros){
-	    global $wpdb;
-	    $data   =   array();
 
-	    $sql="
-	        SELECT `meta_key`, `meta_value`
-	        FROM $wpdb->postmeta
-	        WHERE `meta_key`='$meta_key' GROUP BY `meta_value`
-	    ";
-	    echo $sql;
-	    $options='';
-	    foreach($wpdb->get_results($sql) as $k => $v){
-	        //$data[$v->meta_key][] = $v->meta_value;
-	        $options.="<option value='$v->meta_value'>$v->meta_value</option>";
-	    };
-
-
-	    return $options;
-	}
 
 
 
