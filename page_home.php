@@ -7,11 +7,18 @@
 <?php get_header(); ?>
 <div id="main">
 	<div id="content" class="home">
+		<div class="widget area_1">
+			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('home_area_1') ) : ''; endif; ?>
+		</div>
 		
-		<h1>Bem vindo, você esta na página principal do site</h1>
 
-		<div>
-			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('sidebar_destaque_home') ) : ''; endif; ?>
+		<div class="widget area_2">
+			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('home_area_2') ) : ''; endif; ?>
+		</div>
+
+		<div class="widget area_3">
+			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('home_area_3') ) : ''; endif; ?>
+
 		</div>
 
 

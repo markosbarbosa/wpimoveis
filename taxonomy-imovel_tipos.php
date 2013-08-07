@@ -2,7 +2,7 @@
 <div id="main">
 	<div id="content">
 		
-		<h1>Listagem de Imóveis</h1>
+		<h2>Listagem de Imóveis</h2>
 
 
 		<?php if(have_posts())
@@ -14,12 +14,22 @@
 				<li>
 					<?php if ( has_post_thumbnail()) : ?>
    						<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" >
-   							<?php the_post_thumbnail(); ?>
+   							<?php the_post_thumbnail(array(200,200)); ?>
    						</a>
  					<?php endif; ?>
-					<h2><?php the_title(); ?></h2>
-					<h4>Posted on <?php the_time('F jS, Y') ?></h4>
-					<p><?php the_content(__('(more...)')); ?></p>
+ 					<?php $imovel_fields = get_post_custom(); ?>
+					<div class='detalhes'>
+						<div class='bairro'><?php echo $imovel_fields['bairro'][0] ?></div>
+						<div class='cidade_estado'><?php echo $imovel_fields['cidade'][0] ?> / <?php echo $imovel_fields['estado'][0] ?></div>
+						<div class='preco'><div><span>R$</span><?php echo $imovel_fields['preco'][0] ?></div></div>
+
+						<div class='maisinfo'>
+							<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" >
+   								Mais detalhes
+   							</a>
+						</div>
+
+					</div>
 				</li>
 			<?php
 			endwhile;

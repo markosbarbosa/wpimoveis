@@ -14,6 +14,7 @@ function register_menus() {
 			'primary' => __( 'Menu Principal' ),
 		)
 	);
+
 }
 
 
@@ -240,9 +241,20 @@ function save_imovelinfo(){
  */
 function widgets_register() {
 
+	//Widgets da Home
 	register_sidebar( array(
 		'name' => 'Destaque Home',
-		'id' => 'sidebar_destaque_home',
+		'id' => 'home_area_1',
+	) );
+
+	register_sidebar( array(
+		'name' => 'Destaque Home',
+		'id' => 'home_area_2',
+	) );
+
+	register_sidebar( array(
+		'name' => 'Destaque Home',
+		'id' => 'home_area_3',
 	) );
 
 
@@ -316,7 +328,7 @@ function load_widgets() {
 }
 add_action( 'widgets_init', 'load_widgets' );
  
-/** Define the Widget as an extension of WP_Widget **/
+/** Criando widgets **/
 class Imovel_Search extends WP_Widget {
 	function Imovel_Search() {
 		$widget_ops = array( 'classname' => 'widget_imovel_search', 'description' => 'Widget para busca de imóveis' );
@@ -340,8 +352,6 @@ class Imovel_Search extends WP_Widget {
 		echo $pesquisa_form;
 	}
 
-
-
 	function get_operations($meta_key){
 	    global $wpdb;
 	    $data   =   array();
@@ -361,13 +371,32 @@ class Imovel_Search extends WP_Widget {
 
 	    return $options;
 	}
+}
 
 
-	function get_filter_info($args){
-
-
-
+class Imovel_Carrossel extends WP_Widget {
+	function Imovel_Carrossel() {
+		$widget_ops = array( 'classname' => 'widget_imovel_carrossel', 'description' => 'Carrossel de imóveis' );
+		$control_ops = array( 'id_base' => 'imovel_search' );
+ 
+		/* Create the widget. */
+		$this->WP_Widget( 'widget_imovel_carrossel', 'Carrossel de imóveis', $widget_ops, $control_ops );
 	}
+ 
+
+	function widget( $args, $instance ) {
+		
+		$pesquisa_form=file_get_contents(get_template_directory_uri().'/templates/carrossel.html');
+
+		
+
+		//Carregando variaveis do Thema
+		$pesquisa_form=str_replace('{THEME_URL}', get_template_directory_uri(), $pesquisa_form);
+		$pesquisa_form=str_replace('{OPERACAO}', $this->get_operations('tipo_operacao'), $pesquisa_form);
+
+		echo $pesquisa_form;
+	}
+
 }
 
 
