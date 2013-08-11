@@ -243,17 +243,17 @@ function widgets_register() {
 
 	//Widgets da Home
 	register_sidebar( array(
-		'name' => 'Destaque Home',
+		'name' => 'Destaque Home - Area 1',
 		'id' => 'home_area_1',
 	) );
 
 	register_sidebar( array(
-		'name' => 'Destaque Home',
+		'name' => 'Destaque Home - Area 2',
 		'id' => 'home_area_2',
 	) );
 
 	register_sidebar( array(
-		'name' => 'Destaque Home',
+		'name' => 'Destaque Home - Area 3',
 		'id' => 'home_area_3',
 	) );
 
@@ -325,7 +325,10 @@ function the_gallery() {
 /** Register Widget **/
 function load_widgets() {
 	register_widget( 'Imovel_Search' );
+	register_widget( 'Imovel_Carrossel' );
 }
+
+
 add_action( 'widgets_init', 'load_widgets' );
  
 /** Criando widgets **/
@@ -377,22 +380,16 @@ class Imovel_Search extends WP_Widget {
 class Imovel_Carrossel extends WP_Widget {
 	function Imovel_Carrossel() {
 		$widget_ops = array( 'classname' => 'widget_imovel_carrossel', 'description' => 'Carrossel de imóveis' );
-		$control_ops = array( 'id_base' => 'imovel_search' );
+		$control_ops = array( 'id_base' => 'imovel_carrossel' );
  
 		/* Create the widget. */
-		$this->WP_Widget( 'widget_imovel_carrossel', 'Carrossel de imóveis', $widget_ops, $control_ops );
+		$this->WP_Widget( 'imovel_carrossel', 'Carrossel de imóveis', $widget_ops, $control_ops );
 	}
  
 
 	function widget( $args, $instance ) {
 		
 		$pesquisa_form=file_get_contents(get_template_directory_uri().'/templates/carrossel.html');
-
-		
-
-		//Carregando variaveis do Thema
-		$pesquisa_form=str_replace('{THEME_URL}', get_template_directory_uri(), $pesquisa_form);
-		$pesquisa_form=str_replace('{OPERACAO}', $this->get_operations('tipo_operacao'), $pesquisa_form);
 
 		echo $pesquisa_form;
 	}

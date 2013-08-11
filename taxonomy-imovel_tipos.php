@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <div id="main">
-	<div id="content">
+	<div id="content" class="imovel_tipo_page">
 		
 		<h2>Listagem de Imóveis</h2>
 
