@@ -40,12 +40,6 @@ function wptuts_scripts_basic()
 
 	wp_register_style( 'ad-gallery', get_template_directory_uri() . '/galeria/jquery.ad-gallery.css', array(), '20130803', 'all'  );
 	wp_enqueue_style( 'ad-gallery' );
-	
-	
-
-	//Css dos imóveis
-	wp_register_style( 'style-imoveis', get_template_directory_uri() . '/css/imoveis.css', array(), '20130803', 'all'  );
-	wp_enqueue_style( 'style-imoveis' );
 
 
 
