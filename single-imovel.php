@@ -35,7 +35,7 @@
   </script>
   <!-- Script para galeria de Imagens :: Fim -->
 <div id="main">
-	<div id="content">
+	<div id="content"  class="full">
 	
 		<?php if ( have_posts() ) : while( have_posts() ) : the_post(); ?>
 
@@ -100,7 +100,6 @@
 		<?php endwhile; endif; ?>		
 		
 	</div>
-	<?php get_sidebar('imovel'); ?>
 </div>
 <div id="delimiter">
 </div>

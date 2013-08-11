@@ -14,7 +14,13 @@
 				<li>
 					<?php if ( has_post_thumbnail()) : ?>
    						<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" >
-   							<?php the_post_thumbnail(array(200,200)); ?>
+   							<?php
+								$url_thumbnail = wp_get_attachment_url( get_post_thumbnail_id($post->ID,array(200,200)) );
+   							?>
+   							<div 
+   							class="foto" 
+   							style="background:url('<?php echo $url_thumbnail; ?>') no-repeat center center;">
+   							</div>
    						</a>
  					<?php endif; ?>
  					<?php $imovel_fields = get_post_custom(); ?>

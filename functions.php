@@ -253,12 +253,6 @@ function widgets_register() {
 
 
 	register_sidebar( array(
-		'name' => 'Imóvel',
-		'id' => 'sidebar_imovel',
-	) );
-
-
-	register_sidebar( array(
 		'name' => 'Listagem de Imóveis',
 		'id' => 'sidebar_categorias',
 	) );
@@ -379,13 +373,107 @@ class Imovel_Carrossel extends WP_Widget {
 		/* Create the widget. */
 		$this->WP_Widget( 'imovel_carrossel', 'Carrossel de imóveis', $widget_ops, $control_ops );
 	}
+
+
+	// widget form creation
+	function form($instance) {
+
+		// Check values
+		if( $instance) {
+		     $title = esc_attr($instance['title']);
+		     $text = esc_textarea($instance['text']);
+		} else {
+		     $title = '';
+		     $text = '';
+		}
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Título do Carrossel', 'wp_widget_plugin'); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Categoria dos imóveis que serão exibidos', 'wp_widget_plugin'); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>" type="text" value="<?php echo $text; ?>" />
+		</p>
+	<?php
+	}
+
+	// widget update
+	function update($new_instance, $old_instance) {
+		$instance = $old_instance;
+      	// Fields
+      	$instance['title'] = strip_tags($new_instance['title']);
+      	$instance['text'] = strip_tags($new_instance['text']);
+     	return $instance;
+	}
  
 
-	function widget( $args, $instance ) {
-		
-		$pesquisa_form=file_get_contents(get_template_directory_uri().'/templates/carrossel.html');
 
-		echo $pesquisa_form;
+
+
+
+	function widget( $args, $instance ) {
+		$title = apply_filters('widget_title', $instance['title']);
+		$taxonomia = apply_filters('widget_title', $instance['text']);
+		
+
+ 		//Filtra posts com as informações
+		query_posts(array(
+		    'post_type' => 'imovel', // custom post type
+		    'orderby' => $sort_by,
+		    'tax_query' => array(
+				array(
+					'taxonomy' => 'imovel_tipos', //or tag or custom taxonomy
+					'field' => 'slug',
+					'terms' => array($taxonomia)
+				)
+			),
+		    'order' => $sort_order,
+			'limit' =>4,
+		));		
+
+		?>
+			<h2><?php echo $title; ?></h2>
+			<div class='carrossel_widget'>
+				<ul class='imovel_lista'>
+				<?php
+				if(have_posts())
+				{
+					while (have_posts()) : the_post(); ?>
+				<li>
+					<?php if ( has_post_thumbnail()) : ?>
+   						<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" >
+   							<?php
+								$url_thumbnail = wp_get_attachment_url( get_post_thumbnail_id($post->ID,array(200,200)) );
+   							?>
+   							<div 
+   							class="foto" 
+   							style="background:url('<?php echo $url_thumbnail; ?>') no-repeat center center;">
+   							</div>
+   						</a>
+ 					<?php endif; ?>
+ 					<?php $imovel_fields = get_post_custom(); ?>
+					<div class='detalhes'>
+						<div class='bairro'><?php echo $imovel_fields['bairro'][0] ?></div>
+						<div class='cidade_estado'><?php echo $imovel_fields['cidade'][0] ?> / <?php echo $imovel_fields['estado'][0] ?></div>
+						<div class='preco'><div><span>R$</span><?php echo $imovel_fields['preco'][0] ?></div></div>
+
+						<div class='maisinfo'>
+							<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" >
+   								Mais detalhes
+   							</a>
+						</div>
+
+					</div>
+				</li>
+			<?php
+			endwhile;
+				}
+				?>
+				</ul>
+		</div>
+		<?php
 	}
 
 }

@@ -265,7 +265,7 @@ hgroup{
 	.main-navigation li a {
 		border-bottom: 0;
 		color: #6a6a6a;
-		line-height: 3.692307692;
+		line-height: 30px;
 		text-transform: uppercase;
 		white-space: nowrap;
 	}
@@ -323,7 +323,7 @@ hgroup{
 
 #content { 
 	float: left;
-	width: 75%;
+	width: 80%;
 }
 
 
@@ -336,11 +336,10 @@ hgroup{
 
 
 #sidebar { 
-	width: 23%; 
+	width: 17%; 
 	float: right; 
 
 	padding: 5px;
-	background-color: #f2f2f2;
 	border: 1px solid #ddd;
 }
 
@@ -371,12 +370,23 @@ hgroup{
 
 
 /*Formatacação da Home */
-.home{
-	width: 100%;
+.full{
+	width: 100% !important;
+}
+
+input[type="button"]{
+	border: 1px solid #e9e9e9;
+	background: #4380d3;
+	padding: 4px 14px;
+	color: #fff;
+	text-transform: uppercase;
 }
 
 
 
+.widget{
+	margin: 10px 0px;
+}
 
 
 
@@ -400,14 +410,16 @@ hgroup{
 	background-color: #fff;
 	border: 1px solid #ddd;
 	float: left;
-	margin: 0px 20px 20px 0px;
+	margin: 0px 10px 15px 0px;
 }
 
 
-.imovel_lista li img{
+.imovel_lista li .foto{
 	overflow: hidden;
 	font-size: 0;
-	border-bottom: 4px solid #e9e9e9;
+	border-bottom: 4px solid #0f4fab;
+	width: 184px;
+	height: 130px;
 }
 
 .imovel{
@@ -498,3 +510,28 @@ position: relative;
 .ad-gallery .ad-image-wrapper {
 	height:300px
 }
+
+
+
+
+
+
+
+/* Formatação Pesquisa */
+
+.frm-pesquisa-imovel{
+	padding: 14px 11px;
+}
+
+.frm-pesquisa-imovel select{
+	width: 100px;
+
+}
+
+.frm-pesquisa-imovel span{
+	color: #000;
+	font-size: 13px;
+	margin: 0px 4px 0px 8px;
+	font-weight: 300;
+}
+

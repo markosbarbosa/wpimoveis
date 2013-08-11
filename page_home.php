@@ -6,7 +6,7 @@
 
 <?php get_header(); ?>
 <div id="main">
-	<div id="content" class="home">
+	<div id="content" class="full">
 		<div class="widget area_1">
 			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('home_area_1') ) : ''; endif; ?>
 		</div>
